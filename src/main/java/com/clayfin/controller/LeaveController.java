@@ -91,6 +91,16 @@ public class LeaveController {
 
 		return ResponseEntity.ok(generalResponse);
 	}
+	
+	@GetMapping("/getAvailableLeaves/{employeeId}")
+	ResponseEntity<GeneralResponse> getAvailableLeaves(@PathVariable Integer employeeId,Principal user) throws EmployeeException,LeaveException{
+		var generalResponse = new GeneralResponse();
+
+		generalResponse.setMessage("Found Leaves By Manager Id " + employeeId);
+		generalResponse.setData(leaveTrackerService.getByEmployeeId(employeeId,user));
+
+		return ResponseEntity.ok(generalResponse);
+	}
 
 	@GetMapping("/getLeavesByEmployeeIdAndStatus/{employeeId}/{status}")
 	ResponseEntity<GeneralResponse> getLeavesByEmployeeIdAndStatus(@PathVariable Integer employeeId,
